@@ -8,7 +8,7 @@ import numpy as np
 rooms = []
 
 def input_cmd():
-    os.system('cls')
+    os.system('cls|clear')
     try: 
         cmd = int(input(
             'Приветствую!\n'\
@@ -23,7 +23,7 @@ def input_cmd():
         print('Вы ввели не число')
 
 def set_client():
-    os.system('cls')
+    os.system('cls|clear')
     try:
         fio = input(
             'Чтобы подселиться в отель, нужно ввести некоторые данные.\n'\
@@ -49,14 +49,14 @@ def set_client():
             if number_room in rooms:
                 print('В данной комнате уже живут!')
                 print('Нажмите на enter для продолжения...')
-                key.wait('enter')
+                input()
                 return
             else:
                 rooms.append(number_room)
         else:
             print('У нас нет такого количества комнат!')
             print('Нажмите на enter для продолжения...')
-            key.wait('enter')
+            input()
             return
 
         print(
@@ -81,7 +81,7 @@ def set_client():
             file.close()
 
         print('Нажмите на enter для продолжения...')
-        key.wait('enter')
+        input()
 
     except FileNotFoundError:
         print('Странно... Что-то пошло не так')
@@ -92,25 +92,25 @@ def set_client():
             'Придётся заполнять ещё раз'
         )
         print('Нажмите на enter для продолжения...')
-        key.wait('enter')
+        input()
     
 def get_clients():
-    os.system('cls')
+    os.system('cls|clear')
     for i in range (len(os.listdir('clients/'))):
         file = open(f'clients/room{i+1}.txt', 'r')
         print(file.read())
         file.close()
-    key.wait('enter')
+    input()
 
 def get_client():
-    os.system('cls')
+    os.system('cls|clear')
     try:
         num_room = int(input(
             'Введите номер комнаты о которой вы хотите узнать: '
         ))
         if num_room > 3 or num_room < 1:
             print('Такой комнаты не существует!')
-            key.wait('enter')
+            input()
             return
         else:
             try:
@@ -122,30 +122,30 @@ def get_client():
         print('В этой комнате никто не живет!')
     except ValueError:
         print('Было введено не число!')
-    key.wait('enter')
+    input()
 
 def remove_client():
-    os.system('cls')
+    os.system('cls|clear')
     try:
         num_room = int(input(
             'Введите номер комнаты из которой нужно удалить данные: '
         ))
         if num_room > 3 or num_room < 1:
             print('Такой комнаты не существует!')
-            key.wait('enter')
+            input()
             return
         else:
             os.remove(f'clients/room{num_room}.txt')
             rooms.remove(num_room)
             print('Успешное удаление из базы!')
-            key.wait('enter')
+            input()
 
     except FileNotFoundError:
         print('В этой комнате и так никто не живет!')
-        key.wait('enter')
+        input()
 
 def edit_client():
-    os.system('cls')
+    os.system('cls|clear')
     try:
         num_room = int(input(
             'Введите номер комнаты из которой нужно изменить данные: '
@@ -156,6 +156,8 @@ def edit_client():
             return
         else:
             try:
+                file = open(f'clients/room{num_room}.txt', 'r')
+                file.close()
                 file = open(f'clients/room{num_room}.txt', 'w+')
                 fio = input(
                 'Введите ФИО клиента. '
@@ -180,15 +182,18 @@ def edit_client():
                 '-----------------------'
                 )
                 print('Готово!')
-                key.wait('enter')
+                input()
             finally:
                 file.close()
     except ValueError:
         print('Вы ввели не число!')
-        key.wait('enter')
+        input()
     except FileNotFoundError:
         print('В этой комнате никто не живет!')
-        key.wait('enter')
+        input()
+    except UnboundLocalError:
+        print('В этой комнате никто не живет!')
+        input()
 
 
 def get_for_payment():
