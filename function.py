@@ -1,5 +1,4 @@
 import os
-import keyboard as key
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -152,7 +151,7 @@ def edit_client():
         ))
         if num_room > 3 or num_room < 1:
             print('Такой комнаты не существует!')
-            key.wait('enter')
+            input()
             return
         else:
             try:
